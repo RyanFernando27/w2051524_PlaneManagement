@@ -4,58 +4,51 @@ import java.io.IOException;
 
 public class Ticket {
 
-
-
 //seat, price, and Person
-    String row;
-    int seat;
-    int price;
+    private String row;
+    private int seat;
+    private int price;
      private Person person;
 
 //    Constructor
-public Ticket(String row, int seat, int price, Person person) {
-    this.row = row;
-    this.seat = seat;
-    this.price = price;
-    this.person=person;
+    public Ticket(String row, int seat, int price, Person person) {
+        this.row = row;
+        this.seat = seat;
+        this.price = price;
+        this.person = person;
+    }
 
-
-}
-
-//    Getters
     public String getRow() {
         return row;
+    }
+
+    public void setRow(String row) {
+        this.row = row;
     }
 
     public int getSeat() {
         return seat;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public Person getCustomer() {
-        return person;
-    }
-
-//    Setters
-    public void setRow(String row) {
-        this.row = row;
-    }
-
     public void setSeat(int seat) {
         this.seat = seat;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
     public void setPrice(int price) {
-    this.price=price;
+        this.price = price;
     }
 
-    public void setCustomer(Person person) {
-        this.person =person;
+    public Person getPerson() {
+        return person;
     }
 
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
     // Method to print information about the Ticket object
     public void printTicketInfo() {
@@ -69,12 +62,7 @@ public Ticket(String row, int seat, int price, Person person) {
         System.out.println("*************************");
         System.out.println("*   Customer Details    *");
         System.out.println("*************************");
-        String n=person.getName();
-        System.out.println("Name: "+n);
-        String s= person.getSurname();
-        System.out.println("Surname: "+s);
-        String e= person.getEmail();
-        System.out.println("Email: "+e);
+        person.printPerson();
 
          // Reuses the printPersonInfo() method from Person class
 
@@ -97,7 +85,18 @@ public void save(){
         System.out.println("An Error occurred!");
     }
 }
-public void DeleteFile(){
+public static void DeleteFile(String row, int seat){
+    String filename=(row+seat+".txt");
+    File fileOBJ=new File(filename);
+    if(fileOBJ.exists()){
+        if(fileOBJ.delete()){
+            System.out.println(filename+"File Deleted successfully");
+        }else{
+            System.out.println("Error in Deletion Process..");
+        }
+    }else{
+        System.out.println("File Not found!");
+    }
 
 }
 

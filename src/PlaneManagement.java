@@ -8,7 +8,9 @@ public class PlaneManagement {
     static boolean[] rowC=new boolean[12];
     static boolean[] rowD=new boolean[14];
 
-    static Ticket[] ticketarray=new Ticket[52];
+    static int ticketssold=0;
+
+    static Ticket[]ticketarray=new Ticket[52];
 
     static int index=0;
     static String rowLet;
@@ -114,15 +116,6 @@ public class PlaneManagement {
                             int SPrice=seatPrice(seatNo);//pass the seat number to seatPrice method to
                             // calculate the price of seat.and store it in variable.
 
-
-
-
-
-
-
-
-
-
                             switch (rowLet) {
                                 case "a":
                                     //
@@ -131,12 +124,13 @@ public class PlaneManagement {
                                             rowA[seatNo - 1] = true;
                                             System.out.println(rowA[i]);
                                         }
-
                                         Person personObj=new Person(name,surname,email);
                                         Ticket ticketObj=new Ticket(rowLet,seatNo,SPrice,personObj);
+                                        ticketarray[ticketssold] = ticketObj;
+                                        ticketssold ++;
                                         ticketObj.save();
-                                        ticketarray[index]=ticketObj;
-                                        ticketObj.printTicketInfo();
+
+
 
                                         index++;
                                         System.out.println(rowLet.toUpperCase() + seatNo + " sold\n");
@@ -155,7 +149,7 @@ public class PlaneManagement {
                                         Person personObj=new Person(name,surname,email);
                                         Ticket ticketObj=new Ticket(rowLet,seatNo,SPrice,personObj);
                                         ticketObj.save();
-                                        ticketarray[index]=ticketObj;
+
                                         ticketObj.printTicketInfo();
 
 
@@ -175,7 +169,7 @@ public class PlaneManagement {
                                         }
                                         Person personObj=new Person(name,surname,email);
                                         Ticket ticketObj=new Ticket(rowLet,seatNo,SPrice,personObj);
-                                        ticketarray[index]=ticketObj;
+
                                         ticketObj.save();
                                         ticketObj.printTicketInfo();
 
@@ -197,7 +191,7 @@ public class PlaneManagement {
                                         }
                                         Person personObj=new Person(name,surname,email);
                                         Ticket ticketObj=new Ticket(rowLet,seatNo,SPrice,personObj);
-                                        ticketarray[index]=ticketObj;
+
                                         ticketObj.save();
                                         ticketObj.printTicketInfo();
                                         index++;
@@ -257,6 +251,7 @@ public class PlaneManagement {
                     seatNo = input.nextInt();
 
                     if(seatNo>0 && seatNo<15){
+                        Ticket.DeleteFile(rowLet,seatNo);
 
                         cancelTicketArray(rowLet,seatNo);
 
@@ -267,6 +262,7 @@ public class PlaneManagement {
                                             rowA[seatNo-1] = false;
                                             System.out.println(rowA[i]);// Check seat availability
                                         }
+
 
                                         System.out.println(rowLet.toUpperCase() + seatNo + " Cancelled");
                                     } else {
@@ -436,44 +432,32 @@ public class PlaneManagement {
     }
 
     private  static void print_ticket_info(){
-        System.out.println("*******************\n*   Ticket Info   *\n*******************");
+        System.out.println("*****************************\n*        Ticket Info        *\n*****************************");
         int total=0;
-        for(int i=0;i<rowA.length;i++){
 
-            if(rowA[i]){
-                int price=seatPrice(i);
-                System.out.println("Row A"+(i+1)+": $"+price);
-                total=total+price;
-            }
+        for (int i = 0; i < ticketarray.length; i++) {
+
+                if(ticketarray[i]!=null){
+                    Ticket ticket = ticketarray[i];
+
+                    System.out.println("----------------------------------\n             Ticket:"+(i+1)+"\n----------------------------------");
+                    System.out.println("Row:   "+ticket.getRow());
+                    System.out.println("Seat:   "+ticket.getSeat());
+                    System.out.println("Price:  $"+seatPrice(seatNo));
+
+                    Person buyer = ticket.getPerson();
+                    System.out.println("Name:   "+buyer.getName());
+                    System.out.println("Surname:    "+buyer.getSurname());
+                    System.out.println("email:  "+buyer.getEmail());
+                    System.out.println();
+                    total=total+seatPrice(ticket.getSeat());
+
+                }
+
+
         }
-        for(int i=0;i<rowB.length;i++){
+        System.out.println("Total:  $"+total);
 
-            if(rowB[i]){
-                int price=seatPrice(i);
-                System.out.println("Row B"+(i+1)+": $"+price);
-                total=total+price;
-            }
-        }
-        for(int i=0;i<rowC.length;i++){
-
-            if(rowC[i]){
-                int price=seatPrice(i);
-                System.out.println("Row C"+(i+1)+": $"+price);
-                total=total+price;
-            }
-        }
-        for(int i=0;i<rowD.length;i++){
-
-            if(rowD[i]){
-                int price=seatPrice(i);
-                System.out.println("Row D"+(i+1)+": $"+price);
-                total=total+price;
-            }
-        }
-
-        System.out.println("Total tickets sold during session: $"+total);
-
-//5
     }
     private  static void search_ticket(){
         try{
@@ -527,9 +511,6 @@ public class PlaneManagement {
       return price;
   }
 
-
-
-
     private static void cancelTicketArray(String rowLet,int seat){
 
 
@@ -549,9 +530,6 @@ public class PlaneManagement {
         }
         return false; // Value not found in the array
     }
-
-
-
 }
 
 
