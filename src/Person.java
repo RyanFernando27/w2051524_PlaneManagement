@@ -6,30 +6,44 @@ public class Person {
     private String email;
 
 //  Constructor
-     Person(String name,String surname,String email) {
+
+
+    public Person(String name, String surname, String email) {
         this.name = name;
         this.surname = surname;
         this.email = email;
     }
 
-     void setName(String name){
-        this.name=name;
-    }
-    String getName(){
+    public String getName() {
         return name;
     }
-     void setSurname(String surname) {
-        this.surname = surname;
+
+    public void setName(String name) {
+        this.name = name;
     }
-     String getSurname(){
+
+    public String getSurname() {
         return surname;
     }
 
-     void setEmail(String email) {
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
     }
-     String getEmail(){
-        return email;
+
+    public  void printPerson(){
+        System.out.println("name: "+name);
+        System.out.println("surname: "+surname);
+        System.out.println(email);
+
+
     }
 
 
