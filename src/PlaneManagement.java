@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.*;
 public class PlaneManagement {
     static boolean[] rowA=new boolean[14];
@@ -14,8 +12,9 @@ public class PlaneManagement {
     static String opt="y";
     static Scanner input=new Scanner(System.in);
     public static void main(String[] args) {
+//        Prints Main Menu options
         System.out.println("""
-                Welcome to the Plane Management application\s
+               
                 ****************************************************
                 *                    MAIN MENU                     *
                 ****************************************************
@@ -29,16 +28,15 @@ public class PlaneManagement {
                 ****************************************************
                 """);
 
-//        after print heading menu method started to execute .
+//        after print heading ,menu method started to execute .
         menu();
     }
     public static void  menu(){
-        boolean loopContinue = true;
-        while (loopContinue) {
+
+        while (true) {
             try {
                 System.out.println("Enter option number from Menu: ");
                 int option = input.nextInt(); // Assuming option is an integer
-
                 switch (option) {
                     case 1:
                         buy_seat();
@@ -69,26 +67,23 @@ public class PlaneManagement {
                 System.out.println("Invalid input. Please enter a number.");
                 input.nextLine(); // Clear the input buffer to avoid issues in the next iteration
             }
-
         }
-
-
     }
     private static void buy_seat() {
-        System.out.println("********************\n"+
+        System.out.println("\n********************\n"+
                 "*      Buy Seat    *\n"+
                 "********************");
         opt="y";
 //while opt not equal to "n" loop the code.
         while(!opt.equals("n")){
             try{
+                System.out.print("Enter name:");
+                String name=input.next();
+                System.out.print("Enter Surname:");
+                String surname=input.next();
+                System.out.print("Enter Email:");
+                String email=input.next();
 
-                    System.out.print("Enter name:");
-                    String name=input.next();
-                    System.out.print("Enter Surname:");
-                    String surname=input.next();
-                    System.out.print("Enter Email:");
-                    String email=input.next();
 
 //                store personal details input in variables.
                 try{
@@ -99,6 +94,7 @@ public class PlaneManagement {
                     if(rowLet.equals("a") || rowLet.equals("b") || rowLet.equals("c") || rowLet.equals("d")) {
                         System.out.print("Enter Seat number: ");
                         seatNo = input.nextInt();
+
                         if (seatNo >= 1 && seatNo<15)// seat number should be above 0.
                         {
                             int SPrice=seatPrice(seatNo);//pass the seat number to seatPrice method to
@@ -223,9 +219,6 @@ public class PlaneManagement {
 
                     if(seatNo>0 && seatNo<15){
                         Ticket.DeleteFile(rowLet,seatNo);
-
-                        cancelTicketArray(rowLet,seatNo);
-
                             switch (rowLet) {
                                 case "a":
                                     if (rowA[seatNo - 1]) {
@@ -353,38 +346,36 @@ public class PlaneManagement {
         System.out.println("************************\n"+
                 "*      Seat Planning   *\n"+
                 "************************\n");
-
-
         System.out.print("A ");
-        for (int a=0;a<rowA.length;a++){
-            if(rowA[a]){
+        for (boolean value : rowA) {
+            if (value) {
                 System.out.print("X ");
-            }else{
+            } else {
                 System.out.print("O ");
-        }
+            }
 //4
-    }
+        }
         System.out.print("\nB ");
-        for (int b=0;b<rowB.length;b++){
-            if(rowB[b]){
+        for (boolean value : rowB) {
+            if (value) {
                 System.out.print("X ");
-            }else{
+            } else {
                 System.out.print("O ");
             }
         }
         System.out.print("\nC ");
-        for (int c=0;c<rowC.length;c++){
-            if(rowC[c]){
+        for (boolean value : rowC) {
+            if (value) {
                 System.out.print("X ");
-            }else{
+            } else {
                 System.out.print("O ");
             }
         }
         System.out.print("\nD ");
-        for (int d=0;d<rowD.length;d++){
-            if(rowD[d]){
+        for (boolean value : rowD) {
+            if (value) {
                 System.out.print("X ");
-            }else{
+            } else {
                 System.out.print("O ");
             }
         }
@@ -416,8 +407,6 @@ public class PlaneManagement {
                     total=total+seatPrice(ticket.getSeat());
 
                 }
-
-
         }
         System.out.println("Total:  $"+total);
 
@@ -473,22 +462,19 @@ public class PlaneManagement {
       }
       return price;
   }
-    private static void cancelTicketArray(String rowLet,int seat){
-    }
 
-    public static boolean search(boolean[] array, int value,String row) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[value-1] == false) {
+
+    public static void search(boolean[] array, int value,String row) {
+            if (!array[value - 1]) {
                 System.out.println("Seat Available");
-                return true; // Found the value
             }else{
                 System.out.println("Seat Booked");
                 Ticket.FileExist(row,value);
-                return false;
             }
-        }
-        return false; // Value not found in the array
+         // Value not found in the array
     }
+
+
 }
 
 

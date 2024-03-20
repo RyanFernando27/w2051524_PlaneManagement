@@ -37,14 +37,10 @@ public class Person {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public  void printPerson(){
-        System.out.println("name: "+name);
-        System.out.println("surname: "+surname);
-        System.out.println(email);
-
-
+    public void printperson(){
+        System.out.println("name:  "+this.name);
+        System.out.println("surname: "+this.surname);
+        System.out.println("Email: "+this.email);
     }
-
 
 }

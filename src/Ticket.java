@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Scanner;
 
 public class Ticket {
 
@@ -17,7 +18,7 @@ public class Ticket {
     }
 
     public String getRow() {
-        return row;
+        return row.toUpperCase();
     }
 
     public void setRow(String row) {
@@ -52,11 +53,11 @@ public void save(){
         String filename= (row.toUpperCase()+seat+".txt");
         File fileOBJ=new File("/Users/ryanfernando/Documents/IIT/Software Dev/SEM2/SD II/CW/w2051524_PlaneManagement/Files/"+filename);
         FileWriter writer=new FileWriter(filename);
-        writer.write("\nName    :  "+person.getName());
-        writer.write("\nSuranme :  "+person.getSurname());
-        writer.write("\nEmail   :  "+person.getEmail());
-        writer.write("\nSeat    :  "+row.toUpperCase());
-        writer.write("\nNumber  :  "+seat);
+        writer.write("\nPassenger Name    :  "+person.getName());
+        writer.write("\nPassenger Surname :  "+person.getSurname());
+        writer.write("\nPassenger Email   :  "+person.getEmail());
+        writer.write("\nRow               :  "+row.toUpperCase());
+        writer.write("\nSeat Number       :  "+seat);
         writer.close();
         System.out.println("Ticket File Created Successfully..");
 
@@ -80,17 +81,14 @@ public static void DeleteFile(String row, int seat){
 }
 public static void FileExist(String row,int seat){
         String filename=(row+seat+".txt");
-        File fileOBJ=new File(filename);
-        if(fileOBJ.exists()){
-            try (FileReader fileReader = new FileReader(filename);
-                 BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    System.out.println(line); // Process each line
-                }
-            } catch (IOException e) {
-                System.out.println("Error reading file: " + e.getMessage());
-            }
+    try {File file = new File(filename);
+        Scanner file_reader = new Scanner(file);
+        while (file_reader.hasNextLine()) {
+            String text = file_reader.nextLine();
+            System.out.println(text);}file_reader.close();
+    } catch (IOException e) {
+        System.out.println("Error while reading a file.");
         }
+//
     }
 }
