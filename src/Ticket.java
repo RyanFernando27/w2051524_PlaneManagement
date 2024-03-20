@@ -47,24 +47,6 @@ public class Ticket {
     public void setPerson(Person person) {
         this.person = person;
     }
-
-    // Method to print information about the Ticket object
-    public void printTicketInfo() {
-        System.out.println("*********************");
-        System.out.println("*   Ticket Details  *");
-        System.out.println("*********************");
-        System.out.println("Row: " + row.toUpperCase());
-        System.out.println("Seat: " + seat);
-        System.out.println("Price: $" + price);
-        System.out.println(" ");
-        System.out.println("*************************");
-        System.out.println("*   Customer Details    *");
-        System.out.println("*************************");
-        person.printPerson();
-
-         // Reuses the printPersonInfo() method from Person class
-
-}
 public void save(){
     try{
         String filename= (row.toUpperCase()+seat+".txt");
@@ -95,7 +77,8 @@ public static void DeleteFile(String row, int seat){
         System.out.println("File Not found!");
     }
 
-}public static void FileExist(String row,int seat){
+}
+public static void FileExist(String row,int seat){
         String filename=(row+seat+".txt");
         File fileOBJ=new File(filename);
         if(fileOBJ.exists()){
