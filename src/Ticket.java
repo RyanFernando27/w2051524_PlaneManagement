@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class Ticket {
 
@@ -77,9 +75,8 @@ public void save(){
         writer.write("\nEmail   :  "+person.getEmail());
         writer.write("\nSeat    :  "+row.toUpperCase());
         writer.write("\nNumber  :  "+seat);
-
         writer.close();
-        System.out.println("Ticket File saved Created Successfully..");
+        System.out.println("Ticket File Created Successfully..");
 
     }catch (IOException e){
         System.out.println("An Error occurred!");
@@ -98,8 +95,19 @@ public static void DeleteFile(String row, int seat){
         System.out.println("File Not found!");
     }
 
-}
-
-
-
+}public static void FileExist(String row,int seat){
+        String filename=(row+seat+".txt");
+        File fileOBJ=new File(filename);
+        if(fileOBJ.exists()){
+            try (FileReader fileReader = new FileReader(filename);
+                 BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    System.out.println(line); // Process each line
+                }
+            } catch (IOException e) {
+                System.out.println("Error reading file: " + e.getMessage());
+            }
+        }
+    }
 }
