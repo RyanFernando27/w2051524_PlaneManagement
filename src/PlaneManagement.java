@@ -458,6 +458,7 @@ try{
 
                 if(ticketArray[i]!=null){
                     Ticket ticket = ticketArray[i];
+
                     //ticketArray index assign to ticket object to retrieve details and print .
 
 

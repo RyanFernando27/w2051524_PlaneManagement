@@ -54,7 +54,7 @@ public void save(){
         //save seat information in text file.
     try{
         String filename= (row.toUpperCase()+seat+".txt");//create new file according to row letter and seat number
-        File fileOBJ=new File("/Users/ryanfernando/Documents/IIT/Software Dev/SEM2/SD II/CW/w2051524_PlaneManagement/Files/"+filename);
+        new File("/Users/ryanfernando/Documents/IIT/Software Dev/SEM2/SD II/CW/w2051524_PlaneManagement/Files/"+filename);
         FileWriter writer=new FileWriter(filename);
         writer.write("\nPassenger Name    :  "+person.getName());
         writer.write("\nPassenger Surname :  "+person.getSurname());
