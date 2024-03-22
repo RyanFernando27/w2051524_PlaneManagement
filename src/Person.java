@@ -1,18 +1,21 @@
 public class Person {
+
 //    Attributes
     private String name;
-
     private String surname;
     private String email;
 
+
 //  Constructor
-
-
     public Person(String name, String surname, String email) {
         this.name = name;
         this.surname = surname;
         this.email = email;
     }
+
+    /*
+    Getters and setters for the relevant attributes
+     */
 
     public String getName() {
         return name;
@@ -37,7 +40,10 @@ public class Person {
     public void setEmail(String email) {
         this.email = email;
     }
-    public void printperson(){
+
+
+    public void printperson()//print person info method
+    {
         System.out.println("name:  "+this.name);
         System.out.println("surname: "+this.surname);
         System.out.println("Email: "+this.email);

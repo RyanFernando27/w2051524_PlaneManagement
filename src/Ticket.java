@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Ticket {
 
-//seat, price, and Person
+//Attributes
     private String row;
     private int seat;
     private int price;
@@ -17,6 +17,7 @@ public class Ticket {
         this.person = person;
     }
 
+    //getters and setters
     public String getRow() {
         return row.toUpperCase();
     }
@@ -48,9 +49,11 @@ public class Ticket {
     public void setPerson(Person person) {
         this.person = person;
     }
+
 public void save(){
+        //save seat information in text file.
     try{
-        String filename= (row.toUpperCase()+seat+".txt");
+        String filename= (row.toUpperCase()+seat+".txt");//create new file according to row letter and seat number
         File fileOBJ=new File("/Users/ryanfernando/Documents/IIT/Software Dev/SEM2/SD II/CW/w2051524_PlaneManagement/Files/"+filename);
         FileWriter writer=new FileWriter(filename);
         writer.write("\nPassenger Name    :  "+person.getName());
@@ -66,7 +69,8 @@ public void save(){
     }
 }
 public static void DeleteFile(String row, int seat){
-    String filename=(row+seat+".txt");
+        //when cancel seat in main menu  it will also delete the relevant text file .
+    String filename=(row.toUpperCase()+seat+".txt");
     File fileOBJ=new File(filename);
     if(fileOBJ.exists()){
         if(fileOBJ.delete()){
@@ -80,12 +84,18 @@ public static void DeleteFile(String row, int seat){
 
 }
 public static void FileExist(String row,int seat){
-        String filename=(row+seat+".txt");
+        //in search ticket method , if the seat already sold out it prints the details of who bought it.
+
+        String filename=(row+seat+".txt");//get the searched row letter and seat number and save in file name variable
     try {File file = new File(filename);
-        Scanner file_reader = new Scanner(file);
-        while (file_reader.hasNextLine()) {
-            String text = file_reader.nextLine();
-            System.out.println(text);}file_reader.close();
+        Scanner file_reader = new Scanner(file);// creates a Scanner object to read the file content.
+
+        while (file_reader.hasNextLine()) {//The while loop iterates as long as the
+            // file_reader has more lines to read (hasNextLine).
+            String text = file_reader.nextLine();//eads the next line of the file and stores it in the text variable.
+            System.out.println(text);
+        }
+        file_reader.close();
     } catch (IOException e) {
         System.out.println("Error while reading a file.");
         }
