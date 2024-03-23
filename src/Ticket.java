@@ -1,5 +1,5 @@
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 
 public class Ticket {
 
@@ -50,7 +50,7 @@ public class Ticket {
         this.person = person;
     }
 
-public void save(){
+public void saveInfoTextFile(){
         //save seat information in text file.
     try{
         String filename= (row.toUpperCase()+seat+".txt");//create new file according to row letter and seat number
@@ -62,19 +62,19 @@ public void save(){
         writer.write("\nRow               :  "+row.toUpperCase());
         writer.write("\nSeat Number       :  "+seat);
         writer.close();
-        System.out.println("Ticket File Created Successfully..");
+        System.out.println("Information saved to " +row.toUpperCase()+seat+".txt File Successfully..");
 
     }catch (IOException e){
         System.out.println("An Error occurred!");
     }
 }
-public static void DeleteFile(String row, int seat){
+public static void deleteFile(String row, int seat){
         //when cancel seat in main menu  it will also delete the relevant text file .
     String filename=(row.toUpperCase()+seat+".txt");
     File fileOBJ=new File(filename);
     if(fileOBJ.exists()){
         if(fileOBJ.delete()){
-            System.out.println(filename+"File Deleted successfully");
+            System.out.println(filename+" File Deleted successfully");
         }else{
             System.out.println("Error in Deletion Process..");
         }
@@ -83,7 +83,7 @@ public static void DeleteFile(String row, int seat){
     }
 
 }
-public static void FileExist(String row,int seat){
+public static void fileExist(String row, int seat){
         //in search ticket method , if the seat already sold out it prints the details of who bought it.
 
         String filename=(row+seat+".txt");//get the searched row letter and seat number and save in file name variable
@@ -92,7 +92,7 @@ public static void FileExist(String row,int seat){
 
         while (file_reader.hasNextLine()) {//The while loop iterates as long as the
             // file_reader has more lines to read (hasNextLine).
-            String text = file_reader.nextLine();//eads the next line of the file and stores it in the text variable.
+            String text = file_reader.nextLine();//Reads the next line of the file and stores it in the text variable.
             System.out.println(text);
         }
         file_reader.close();

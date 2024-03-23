@@ -9,7 +9,8 @@ public class PlaneManagement {
     static Ticket[] ticketArray=new Ticket[52];//save Ticket objects in array
     static String rowLet;
     static int seatNo;
-    static String opt="y";//after user enter "n" for exit loop and opt="n" by this  set opt variable to "y" to use in other methods while loops.
+    static String opt="y";//after user enter "n" for exit loop and opt="n" by this  set opt variable to "y" -
+    // -to use in other methods while loops.
     static Scanner input=new Scanner(System.in);
     public static void main(String[] args) {
 //        Prints Main Menu options
@@ -41,22 +42,22 @@ public class PlaneManagement {
                 int option = input.nextInt(); // Assuming option is an integer
                 switch (option) {
                     case 1:
-                        buy_seat();
+                        buySeat();
                         break;
                     case 2:
-                        cancel_seat();
+                        cancelSeat();
                         break;
                     case 3:
-                        find_first_available();
+                        findFirstAvailable();
                         break;
                     case 4:
-                        show_seat_planning();
+                        showSeatPlanning();
                         break;
                     case 5:
-                        print_ticket_info();
+                        printTicketInfo();
                         break;
                     case 6:
-                        search_ticket();
+                        searchTicket();
                         break;
                     case 0:
                         System.out.println("Exitting...");
@@ -71,7 +72,7 @@ public class PlaneManagement {
             }
         }
     }
-    private static void buy_seat() {
+    private static void buySeat() {
 
         //when user inputs 1 in menu method this method started to run,
         //after input row Letter (a-d) and input seat number(0-14/0-12),then ask for personal information
@@ -196,9 +197,9 @@ public class PlaneManagement {
         Ticket ticketObj=new Ticket(rowLet,seatNo,seatPrice,personObj);
         ticketArray[ticketsSold] = ticketObj;//save created ticket object in array.
         ticketsSold++;
-        ticketObj.save();//save details on a text file.
+        ticketObj.saveInfoTextFile();//save details on a text file.
     }
-    private  static void cancel_seat(){
+    private  static void cancelSeat(){
 //when user inputs 2 in menu method this method started to run,
         //after input row Letter (a-d) and input seat number(0-14/0-12),if it is a sold seat this make the seat available.
         //then all valid it will change true to false in relevant array.
@@ -220,7 +221,7 @@ public class PlaneManagement {
                         seatNo = input.nextInt();
 
                         if(seatNo>0 && seatNo<15){
-                            Ticket.DeleteFile(rowLet,seatNo);//by this the text file exist to the relevant seat will be deleted;
+                            Ticket.deleteFile(rowLet,seatNo);//by this the text file exist to the relevant seat will be deleted;
                             switch (rowLet) {
                                 case "a":
                                     //check if the seat booked or not.
@@ -296,7 +297,7 @@ public class PlaneManagement {
         menu();
 //2
 }
-    private  static void find_first_available() {
+    private  static void findFirstAvailable() {
         /*
         when user inputs 3 in menu method this method started to run,
         after input row Letter (a-d) it will get you the first available seat in row.
@@ -390,10 +391,11 @@ try{
         }
         menu();
     }
-    private  static void show_seat_planning(){
+    private  static void showSeatPlanning(){
         /*
         user inputs 4 in main menu this method start to execute.
-        it shows the seating plan for look which seats available and which seats not available.
+        it shows the seating plan for look which seats available and which -
+        -seats not available.
         seat available prints O and seat not available prints 1.
         return nothing
          */
@@ -441,7 +443,7 @@ try{
         System.out.println("\n ");
         menu();
     }
-    private  static void print_ticket_info(){
+    private  static void printTicketInfo(){
         /*
         user inputs 5 in main menu this method start to execute.
         this will print the ticket information with person details of sold seats during session .
@@ -476,14 +478,19 @@ try{
                     //get the total of all seats sold during the session.
                 }
         }
-        System.out.println("Total:  $"+total);//print the total of all sold seats during session.
+        System.out.println("Total:  $"+total);//print the total of all sold
+        // seats during session.
 
     }
-    private  static void search_ticket(){
+    private  static void searchTicket(){
         /*
         When user Enter 6 in main menu option this method start to execute
         ask user to enter seat details to check if it's available or sold.
          */
+        System.out.println("""
+                ***********************************
+                *          Search Ticket          *
+                ***********************************""");
         opt="y";
         try{
             while (!opt.equals("n")){
@@ -495,7 +502,8 @@ try{
                     if((1<=seatNo) && (seatNo < 15)){
                         switch (rowLet) {
                             //(->) a concise way to define the action for the case.
-                            //user enter row letter (A-B) then it calls the search method and pass rowA Array , seat number ,rowLetter.
+                            //user enter row letter (A-B) then it calls the
+                            // search method and pass rowA Array , seat number ,rowLetter.
                             case "a" -> search(rowA, seatNo, rowLet);//
                             case "b" -> search(rowB, seatNo, rowLet);
                             case "c" -> search(rowC, seatNo, rowLet);
@@ -522,10 +530,11 @@ try{
         //return nothing
 
         if (!array[value - 1]) {
-            System.out.println("Seat Available");
+            System.out.println(row.toUpperCase()+value+" Seat Available");
         }else{
             System.out.println("Seat Booked");
-            Ticket.FileExist(row,value);//call FileExist method in Ticket object to print details of sold ticket.
+            Ticket.fileExist(row,value);//call FileExist method in Ticket object
+            // to print details of sold ticket.
         }
     }
     private static int seatPrice(int seatNo) {
